@@ -1,5 +1,3 @@
-if true then return {} end -- WARN: REMOVE THIS LINE TO ACTIVATE THIS FILE
-
 -- AstroCore provides a central place to modify mappings, vim options, autocommands, and more!
 -- Configuration documentation can be found with `:h astrocore`
 -- NOTE: We highly recommend setting up the Lua Language Server (`:LspInstall lua_ls`)
@@ -72,6 +70,33 @@ return {
           end,
           desc = "Close buffer from tabline",
         },
+        ["<leader>bn"] = { "<cmd>tabnew<cr>", desc = "New tab" },
+        -- tables with the `name` key will be registered with which-key if it's installed
+        -- this is useful for naming menus
+        ["<leader>b"] = { name = "Buffers" },
+        ["<leader>a"] = { "<cmd>RnvimrToggle<cr>", desc = "Ranger" },
+        ["<C-\\>"] = { "<cmd>ToggleTerm direction=float<cr>", desc = "Float terminal" },
+        ["<C-PageDown>"] = {
+          function() require("astrocore.buffer").nav(vim.v.count > 0 and vim.v.count or 1) end,
+          desc = "Next Buffer",
+        },
+        ["<C-PageUp>"] = {
+          function() require("astrocore.buffer").nav(-(vim.v.count > 0 and vim.v.count or 1)) end,
+          desc = "Previous Buffer",
+        },
+        ["<C-A-PageDown>"] = {
+          function() require("astrocore.buffer").move(vim.v.count > 0 and vim.v.count or 1) end,
+          desc = "Next Buffer",
+        },
+        ["<C-A-PageUp>"] = {
+          function() require("astrocore.buffer").move(-(vim.v.count > 0 and vim.v.count or 1)) end,
+          desc = "Previous Buffer",
+        },
+        ["<leader>fd"] = { "<cmd>TodoTelescope<cr>", desc = "Find TODO List" },
+        ["<C-a>"] = {
+          "<cmd>Trouble diagnostics results.win = { type = split, position=right}<cr>",
+          desc = "Trouble List",
+        },
 
         -- tables with just a `desc` key will be registered with which-key if it's installed
         -- this is useful for naming menus
@@ -79,6 +104,11 @@ return {
 
         -- setting a mapping to false will disable it
         -- ["<C-S>"] = false,
+      },
+      t = {
+        -- setting a mapping to false will disable it
+        -- ["<esc>"] = false,
+        ["<C-\\>"] = { "<cmd>ToggleTerm<cr>", desc = "float terminal" },
       },
     },
   },
